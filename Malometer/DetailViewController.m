@@ -9,7 +9,8 @@
 #import "DetailViewController.h"
 #import "Agent.h"
 
-static NSString *const kAgentObserver = @"agentObserver";
+static NSString *const kAgentDestructionForceChanged = @"agent.agentDestructionPower";
+static NSString *const kAgentMotivationChanged = @"agent.agentMotivation";
 
 @interface DetailViewController ()
 
@@ -36,7 +37,8 @@ static NSString *const kAgentObserver = @"agentObserver";
     [self initSentences];
     [self configureView];
     
-    [self addObserver:self forKeyPath:kAgentObserver options:NSKeyValueObservingOptionNew context:nil];
+    [self addObserver:self forKeyPath:kAgentDestructionForceChanged options:NSKeyValueObservingOptionNew context:nil];
+    [self addObserver:self forKeyPath:kAgentMotivationChanged options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -80,12 +82,10 @@ static NSString *const kAgentObserver = @"agentObserver";
 - (IBAction)destructionPowerPressed:(UIStepper *)sender
 {
     self.agent.agentDestructionPower = @(sender.value);
-    [self configureView];
 }
 - (IBAction)motivationPowerPressed:(UIStepper *)sender
 {
     self.agent.agentMotivation = @(sender.value);
-    [self configureView];
 }
 #pragma mark - InputText methods.
 - (IBAction)nameEditingChange:(UITextField *)sender
@@ -96,8 +96,9 @@ static NSString *const kAgentObserver = @"agentObserver";
 #pragma mark - Observer methods.
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ([keyPath isEqualToString:kAgentObserver])
+    if ([keyPath isEqualToString:kAgentDestructionForceChanged] || [keyPath isEqualToString:kAgentMotivationChanged])
     {
+        [self configureView];
         [self calculateContratacionLabel];
     }
 }
@@ -112,7 +113,8 @@ static NSString *const kAgentObserver = @"agentObserver";
 
 - (void)removeObservers
 {
-    [self removeObserver:self forKeyPath:kAgentObserver];
+    [self removeObserver:self forKeyPath:kAgentDestructionForceChanged];
+    [self removeObserver:self forKeyPath:kAgentMotivationChanged];
 }
 
 @end

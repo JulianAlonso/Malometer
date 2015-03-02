@@ -78,27 +78,25 @@ static NSString *const kCreateAgentSegue = @"createAgentSegue";
     
     if ([segue.identifier isEqualToString:kCreateAgentSegue])
     {
-        [self presentDetailViewController:segue sender:sender];
+        Agent *agent = [[self fetchedResultsController] objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
+        UINavigationController *nc = segue.destinationViewController;
+        [self presentDetailViewController:(DetailViewController *)nc.topViewController agent:agent];
     }
     
 }
 
-- (void)presentDetailViewController:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)presentDetailViewController:(DetailViewController *)detailViewController agent:(Agent *)agent
 {
     [self.managedObjectContext.undoManager beginUndoGrouping];
     
-    UINavigationController *nc = segue.destinationViewController;
-    DetailViewController *dvc = nc.childViewControllers.firstObject;
-    dvc.delegate = self;
+    detailViewController.delegate = self;
     
-    if (sender != self)
+    if (!agent)
     {
-        dvc.agent = [self getNewAgent];;
+        agent = [self getNewAgent];
     }
-    else
-    {
-        dvc.agent = [self.fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
-    }
+    
+    detailViewController.agent = agent;
 }
 
 #pragma mark - Table View
@@ -239,16 +237,6 @@ static NSString *const kCreateAgentSegue = @"createAgentSegue";
 {
     [self.tableView endUpdates];
 }
-
-/*
-// Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed. 
- 
- - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    // In the simplest, most efficient, case, reload the table view.
-    [self.tableView reloadData];
-}
- */
 
 @end
 
