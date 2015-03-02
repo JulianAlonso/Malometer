@@ -13,8 +13,6 @@
 
 static NSString *const kAgentEntityName = @"Agent";
 static NSString *const kAgentName = @"agentName";
-static NSString *const kAgentDestructionPower = @"agentDestructionPower";
-static NSString *const kAgentMotivation = @"agentMotivation";
 
 static NSString *const kCreateAgentSegue = @"createAgentSegue";
 
@@ -34,11 +32,8 @@ static NSString *const kCreateAgentSegue = @"createAgentSegue";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-//    self.navigationItem.leftBarButtonItem = self.editButtonItem;
-
-//    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-//    self.navigationItem.rightBarButtonItem = addButton;
+    
+    self.managedObjectContext.undoManager = [[NSUndoManager alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -77,20 +72,27 @@ static NSString *const kCreateAgentSegue = @"createAgentSegue";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-        [[segue destinationViewController] setDetailItem:object];
+        Agent *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+        [[segue destinationViewController] setAgent:object];
     }
     
     if ([segue.identifier isEqualToString:kCreateAgentSegue])
     {
-        Agent *newAgent = [self getNewAgent];
-        
-        UINavigationController *nc = segue.destinationViewController;
-        DetailViewController *dvc = nc.childViewControllers.firstObject;
-        dvc.detailItem = newAgent;
-        dvc.delegate = self;
+        [self presentDetailViewController:segue];
     }
     
+}
+
+- (void)presentDetailViewController:(UIStoryboardSegue *)segue
+{
+    [self.managedObjectContext.undoManager beginUndoGrouping];
+    
+    Agent *newAgent = [self getNewAgent];
+    
+    UINavigationController *nc = segue.destinationViewController;
+    DetailViewController *dvc = nc.childViewControllers.firstObject;
+    dvc.agent = newAgent;
+    dvc.delegate = self;
 }
 
 #pragma mark - Table View
@@ -130,9 +132,22 @@ static NSString *const kCreateAgentSegue = @"createAgentSegue";
     }
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Agent *selectedAgent = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    DetailViewController *detailViewController = (DetailViewController *)[[self.storyboard instantiateViewControllerWithIdentifier:@"detailViewController"] topViewController];
+    detailViewController.agent = selectedAgent;
+    detailViewController.delegate = self;
+    
+    [self.managedObjectContext.undoManager beginUndoGrouping];
+    
+    [self performSegueWithIdentifier:kCreateAgentSegue sender:self];
+}
+
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[object valueForKey:kAgentName] description];
+    Agent *agent = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = agent.agentName;
 }
 
 #pragma mark - Fetched results controller
@@ -243,6 +258,17 @@ static NSString *const kCreateAgentSegue = @"createAgentSegue";
 
 - (void)dismissDetailViewController:(id)detailViewController modifiedData:(BOOL)modifiedData
 {
+    [self.managedObjectContext.undoManager endUndoGrouping];
+    
+    if (modifiedData)
+    {
+        [self.managedObjectContext save:nil];
+    }
+    else
+    {
+        [self.managedObjectContext.undoManager undo];
+    }
+    
     [detailViewController dismissViewControllerAnimated:YES completion:nil];
 }
 

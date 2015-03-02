@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "DetailViewProtocol.h"
+#import <CoreData/CoreData.h>
+
+@class Agent;
 
 @interface DetailViewController : UIViewController
 
-@property (strong, nonatomic) id detailItem;
+@property (strong, nonatomic) Agent *agent;
 @property (nonatomic, strong) id<DetailViewProtocol> delegate;
 
 @end

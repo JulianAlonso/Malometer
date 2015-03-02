@@ -82,6 +82,9 @@
                                 <rect key="frame" x="16" y="74" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="nameEditingChange:" destination="Ah7-4n-0Wa" eventType="editingChanged" id="Kvf-0L-BLb"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQ9-zu-PdI">
                                 <rect key="frame" x="352" y="165" width="42" height="21"/>
@@ -174,6 +177,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="contratacionLabel" destination="5s4-E1-Sfy" id="Sau-OQ-fXj"/>
                         <outlet property="destructionPowerLabel" destination="IQ9-zu-PdI" id="3EY-S1-GAB"/>
                         <outlet property="destructionPowerStepper" destination="Dvk-1U-zoW" id="DFx-sY-VYl"/>
                         <outlet property="motivationLabel" destination="awe-iu-h1k" id="8bs-XX-pQF"/>
@@ -188,7 +192,7 @@
         <!--Navigation Controller-->
         <scene sceneID="5ZY-FP-Xhs">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ETP-t9-hnE" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="detailViewController" automaticallyAdjustsScrollViewInsets="NO" id="ETP-t9-hnE" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ULF-qK-Q6G">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
