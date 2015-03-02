@@ -15,5 +15,6 @@
 @property (nonatomic, retain) NSString * agentName;
 @property (nonatomic, retain) NSNumber * agentDestructionPower;
 @property (nonatomic, retain) NSNumber * agentMotivation;
+@property (nonatomic, retain) NSNumber * agentAppraisal;
 
 @end

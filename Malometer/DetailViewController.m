@@ -36,6 +36,11 @@ static NSString *const kAgentMotivationChanged = @"agent.agentMotivation";
     // Do any additional setup after loading the view, typically from a nib.
     [self initSentences];
     [self configureView];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
     [self addObserver:self forKeyPath:kAgentDestructionForceChanged options:NSKeyValueObservingOptionNew context:nil];
     [self addObserver:self forKeyPath:kAgentMotivationChanged options:NSKeyValueObservingOptionNew context:nil];
@@ -63,7 +68,7 @@ static NSString *const kAgentMotivationChanged = @"agent.agentMotivation";
     self.destructionPowerLabel.text = self.destructionPowerSentences[(int)self.destructionPowerStepper.value];
     self.motivationLabel.text = self.motivationSentences[(int)self.motivationStepper.value];
     self.nameInputText.text = self.agent.agentName;
-    [self calculateContratacionLabel];
+    self.contratacionLabel.text = self.resultSentences[self.agent.agentAppraisal.integerValue];
 }
 
 #pragma mark - BarButtonAction methods.
@@ -99,17 +104,18 @@ static NSString *const kAgentMotivationChanged = @"agent.agentMotivation";
     if ([keyPath isEqualToString:kAgentDestructionForceChanged] || [keyPath isEqualToString:kAgentMotivationChanged])
     {
         [self configureView];
-        [self calculateContratacionLabel];
+//        [self calculateContratacionLabel];
+        self.contratacionLabel.text = self.resultSentences[self.agent.agentAppraisal.integerValue];
     }
 }
 
 #pragma mark - Own methods.
-- (void)calculateContratacionLabel
-{
-    int contratacion = (self.motivationStepper.value + self.destructionPowerStepper.value) / 2;
-    
-    self.contratacionLabel.text = self.resultSentences[contratacion];
-}
+//- (void)calculateContratacionLabel
+//{
+//    int contratacion = (self.motivationStepper.value + self.destructionPowerStepper.value) / 2;
+//    
+//    self.contratacionLabel.text = self.resultSentences[contratacion];
+//}
 
 - (void)removeObservers
 {

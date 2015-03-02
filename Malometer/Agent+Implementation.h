@@ -1,5 +1,5 @@
 //
-//  Agent.m
+//  Agent+Implementation.h
 //  Malometer
 //
 //  Created by Julian Alonso on 2/3/15.
@@ -8,12 +8,6 @@
 
 #import "Agent.h"
 
-
-@implementation Agent
-
-@dynamic agentName;
-@dynamic agentDestructionPower;
-@dynamic agentMotivation;
-@dynamic agentAppraisal;
+@interface Agent (Implementation)
 
 @end

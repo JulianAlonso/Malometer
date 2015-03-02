@@ -16,7 +16,8 @@
 		01A5FC871AA47603004A45FB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01A5FC861AA47603004A45FB /* Images.xcassets */; };
 		01A5FC8A1AA47603004A45FB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A5FC881AA47603004A45FB /* LaunchScreen.xib */; };
 		01A5FC961AA47603004A45FB /* MalometerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A5FC951AA47603004A45FB /* MalometerTests.m */; };
-		01A5FCA11AA48A36004A45FB /* Agent.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A5FCA01AA48A36004A45FB /* Agent.m */; };
+		01A5FCDC1AA4F8FD004A45FB /* Agent.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A5FCDB1AA4F8FD004A45FB /* Agent.m */; };
+		01A5FCDF1AA4F924004A45FB /* Agent+Implementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A5FCDE1AA4F924004A45FB /* Agent+Implementation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,9 +47,11 @@
 		01A5FC8F1AA47603004A45FB /* MalometerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MalometerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		01A5FC941AA47603004A45FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01A5FC951AA47603004A45FB /* MalometerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MalometerTests.m; sourceTree = "<group>"; };
-		01A5FC9F1AA48A36004A45FB /* Agent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Agent.h; sourceTree = "<group>"; };
-		01A5FCA01AA48A36004A45FB /* Agent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Agent.m; sourceTree = "<group>"; };
 		01A5FCA21AA48DAF004A45FB /* DetailViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewProtocol.h; sourceTree = "<group>"; };
+		01A5FCDA1AA4F8FD004A45FB /* Agent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Agent.h; sourceTree = "<group>"; };
+		01A5FCDB1AA4F8FD004A45FB /* Agent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Agent.m; sourceTree = "<group>"; };
+		01A5FCDD1AA4F924004A45FB /* Agent+Implementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Agent+Implementation.h"; sourceTree = "<group>"; };
+		01A5FCDE1AA4F924004A45FB /* Agent+Implementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Agent+Implementation.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,9 +104,11 @@
 				01A5FC861AA47603004A45FB /* Images.xcassets */,
 				01A5FC881AA47603004A45FB /* LaunchScreen.xib */,
 				01A5FC7A1AA47603004A45FB /* Malometer.xcdatamodeld */,
-				01A5FC9F1AA48A36004A45FB /* Agent.h */,
-				01A5FCA01AA48A36004A45FB /* Agent.m */,
+				01A5FCDA1AA4F8FD004A45FB /* Agent.h */,
+				01A5FCDB1AA4F8FD004A45FB /* Agent.m */,
 				01A5FC731AA47603004A45FB /* Supporting Files */,
+				01A5FCDD1AA4F924004A45FB /* Agent+Implementation.h */,
+				01A5FCDE1AA4F924004A45FB /* Agent+Implementation.m */,
 			);
 			path = Malometer;
 			sourceTree = "<group>";
@@ -237,7 +242,8 @@
 				01A5FC821AA47603004A45FB /* DetailViewController.m in Sources */,
 				01A5FC7F1AA47603004A45FB /* MasterViewController.m in Sources */,
 				01A5FC791AA47603004A45FB /* AppDelegate.m in Sources */,
-				01A5FCA11AA48A36004A45FB /* Agent.m in Sources */,
+				01A5FCDF1AA4F924004A45FB /* Agent+Implementation.m in Sources */,
+				01A5FCDC1AA4F8FD004A45FB /* Agent.m in Sources */,
 				01A5FC761AA47603004A45FB /* main.m in Sources */,
 				01A5FC7C1AA47603004A45FB /* Malometer.xcdatamodeld in Sources */,
 			);
