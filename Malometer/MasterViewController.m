@@ -8,8 +8,21 @@
 
 #import "MasterViewController.h"
 #import "DetailViewController.h"
+#import "Agent.h"
+#import "DetailViewProtocol.h"
+
+static NSString *const kAgentEntityName = @"Agent";
+static NSString *const kAgentName = @"agentName";
+static NSString *const kAgentDestructionPower = @"agentDestructionPower";
+static NSString *const kAgentMotivation = @"agentMotivation";
+
+static NSString *const kCreateAgentSegue = @"createAgentSegue";
 
 @interface MasterViewController ()
+
+@end
+
+@interface MasterViewController (DetailViewProtocol)<DetailViewProtocol>
 
 @end
 
@@ -22,10 +35,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+//    self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
+//    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+//    self.navigationItem.rightBarButtonItem = addButton;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,23 +46,30 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)insertNewObject:(id)sender {
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-        
-    // If appropriate, configure the new managed object.
-    // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
-        
-    // Save the context.
-    NSError *error = nil;
-    if (![context save:&error]) {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
+//- (void)insertNewObject:(id)sender {
+//    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+//    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
+//    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+//        
+//    // If appropriate, configure the new managed object.
+//    // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
+//    [newManagedObject setValue:@"Paco" forKey:kAgentName];
+//    [newManagedObject setValue:@"4" forKey:kAgentMotivation];
+//    [newManagedObject setValue:@"4" forKey:kAgentDestructionPower];
+//        
+//    // Save the context.
+//    NSError *error = nil;
+//    if (![context save:&error]) {
+//        // Replace this implementation with code to handle the error appropriately.
+//        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+//        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+//        abort();
+//    }
+//}
+
+- (Agent *)getNewAgent
+{
+    return [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([Agent class]) inManagedObjectContext:self.managedObjectContext];
 }
 
 #pragma mark - Segues
@@ -60,6 +80,17 @@
         NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
         [[segue destinationViewController] setDetailItem:object];
     }
+    
+    if ([segue.identifier isEqualToString:kCreateAgentSegue])
+    {
+        Agent *newAgent = [self getNewAgent];
+        
+        UINavigationController *nc = segue.destinationViewController;
+        DetailViewController *dvc = nc.childViewControllers.firstObject;
+        dvc.detailItem = newAgent;
+        dvc.delegate = self;
+    }
+    
 }
 
 #pragma mark - Table View
@@ -101,7 +132,7 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
+    cell.textLabel.text = [[object valueForKey:kAgentName] description];
 }
 
 #pragma mark - Fetched results controller
@@ -114,14 +145,14 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:kAgentEntityName inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
     // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:kAgentName ascending:NO];
     NSArray *sortDescriptors = @[sortDescriptor];
     
     [fetchRequest setSortDescriptors:sortDescriptors];
@@ -205,5 +236,14 @@
     [self.tableView reloadData];
 }
  */
+
+@end
+
+@implementation MasterViewController (DetailViewProtocol)
+
+- (void)dismissDetailViewController:(id)detailViewController modifiedData:(BOOL)modifiedData
+{
+    [detailViewController dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end
