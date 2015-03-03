@@ -16,6 +16,7 @@
 
 @property (strong, nonatomic) Agent *agent;
 @property (nonatomic, strong) id<DetailViewProtocol> delegate;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectCotnext;
 
 @end
 

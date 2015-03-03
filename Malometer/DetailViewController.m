@@ -8,6 +8,8 @@
 
 #import "DetailViewController.h"
 #import "Agent.h"
+#import "Domain+Implementation.h"
+#import "FreakType+Implementation.h"
 
 static NSString *const kAgentDestructionForceChanged = @"agent.agentDestructionPower";
 static NSString *const kAgentMotivationChanged = @"agent.agentMotivation";
@@ -15,6 +17,8 @@ static NSString *const kAgentMotivationChanged = @"agent.agentMotivation";
 @interface DetailViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *nameInputText;
+@property (weak, nonatomic) IBOutlet UITextField *freakTypeInputText;
+@property (weak, nonatomic) IBOutlet UITextField *domainInputText;
 @property (weak, nonatomic) IBOutlet UIStepper *destructionPowerStepper;
 @property (weak, nonatomic) IBOutlet UIStepper *motivationStepper;
 @property (weak, nonatomic) IBOutlet UILabel *destructionPowerLabel;
@@ -62,12 +66,12 @@ static NSString *const kAgentMotivationChanged = @"agent.agentMotivation";
 {
     //config steppers
     self.nameInputText.text = self.agent.agentName;
+    //TODO: load domain and freakType inputs.
     self.motivationStepper.value = [self.agent.agentMotivation doubleValue];
     self.destructionPowerStepper.value = [self.agent.agentDestructionPower doubleValue];
     
     self.destructionPowerLabel.text = self.destructionPowerSentences[(int)self.destructionPowerStepper.value];
     self.motivationLabel.text = self.motivationSentences[(int)self.motivationStepper.value];
-    self.nameInputText.text = self.agent.agentName;
     self.contratacionLabel.text = self.resultSentences[self.agent.agentAppraisal.integerValue];
 }
 
@@ -79,6 +83,7 @@ static NSString *const kAgentMotivationChanged = @"agent.agentMotivation";
 }
 - (IBAction)saveButtonPressed:(UIBarButtonItem *)sender
 {
+    [self preSave];
     [self removeObservers];
     [self.delegate dismissDetailViewController:self modifiedData:YES];
 }
@@ -92,18 +97,13 @@ static NSString *const kAgentMotivationChanged = @"agent.agentMotivation";
 {
     self.agent.agentMotivation = @(sender.value);
 }
-#pragma mark - InputText methods.
-- (IBAction)nameEditingChange:(UITextField *)sender
-{
-    self.agent.agentName = sender.text;
-}
 
 #pragma mark - Observer methods.
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([keyPath isEqualToString:kAgentDestructionForceChanged] || [keyPath isEqualToString:kAgentMotivationChanged])
     {
-        [self configureView];
+        [self updateLabels];
         self.contratacionLabel.text = self.resultSentences[self.agent.agentAppraisal.integerValue];
     }
 }
@@ -115,4 +115,69 @@ static NSString *const kAgentMotivationChanged = @"agent.agentMotivation";
     [self removeObserver:self forKeyPath:kAgentMotivationChanged];
 }
 
+- (void)updateLabels
+{
+    self.destructionPowerLabel.text = self.destructionPowerSentences[(int)self.destructionPowerStepper.value];
+    self.motivationLabel.text = self.motivationSentences[(int)self.motivationStepper.value];
+    self.contratacionLabel.text = self.resultSentences[self.agent.agentAppraisal.integerValue];
+}
+#pragma mark - Assign methods.
+
+- (void)assignName
+{
+    self.agent.agentName = self.nameInputText.text;
+}
+
+- (void)assignDomains
+{
+    NSString *domainsText = self.domainInputText.text;
+    if (domainsText)
+    {
+        NSArray *domains = [domainsText componentsSeparatedByString:@","];
+        NSMutableSet *newDomains = [NSMutableSet set];
+        for (NSString *domainName in domains)
+        {
+            Domain *domain = [Domain fetchInMOC:self.managedObjectCotnext withName:domainName];
+            if (!domain)
+            {
+                domain = [Domain domainInMOC:self.managedObjectCotnext withName:domainName];
+            }
+            
+            [newDomains addObject:domain];
+        }
+        
+        self.agent.agentDomain = newDomains;
+    }
+
+}
+
+- (void)assignFreakType
+{
+    if (self.agent.agentCategory.freakTypeName != self.freakTypeInputText.text)
+    {
+        self.agent.agentCategory = [FreakType freakTypeInMOC:self.managedObjectCotnext withName:self.freakTypeInputText.text];
+    }
+}
+
+- (void)assignDestructionPower
+{
+    self.agent.agentDestructionPower = @(self.destructionPowerStepper.value);
+}
+
+- (void)assignMotivation
+{
+    self.agent.agentMotivation = @(self.motivationStepper.value);
+}
+
+#pragma mark - PreSave method.
+- (void)preSave
+{
+    [self assignName];
+    [self assignDomains];
+    [self assignFreakType];
+    [self assignMotivation];
+    [self assignDestructionPower];
+}
+
 @end
+

@@ -42,27 +42,6 @@ static NSString *const kCreateAgentSegue = @"createAgentSegue";
     // Dispose of any resources that can be recreated.
 }
 
-//- (void)insertNewObject:(id)sender {
-//    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-//    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-//    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-//        
-//    // If appropriate, configure the new managed object.
-//    // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-//    [newManagedObject setValue:@"Paco" forKey:kAgentName];
-//    [newManagedObject setValue:@"4" forKey:kAgentMotivation];
-//    [newManagedObject setValue:@"4" forKey:kAgentDestructionPower];
-//        
-//    // Save the context.
-//    NSError *error = nil;
-//    if (![context save:&error]) {
-//        // Replace this implementation with code to handle the error appropriately.
-//        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-//        abort();
-//    }
-//}
-
 - (Agent *)getNewAgent
 {
     return [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([Agent class]) inManagedObjectContext:self.managedObjectContext];
@@ -74,14 +53,19 @@ static NSString *const kCreateAgentSegue = @"createAgentSegue";
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         Agent *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-        [[segue destinationViewController] setAgent:object];
+        UINavigationController *nc = segue.destinationViewController;
+        DetailViewController *dvc = (DetailViewController *)nc.topViewController;
+        dvc.agent = object;
+        dvc.managedObjectCotnext = self.managedObjectContext;
     }
     
     if ([segue.identifier isEqualToString:kCreateAgentSegue])
     {
         Agent *agent = [[self fetchedResultsController] objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
         UINavigationController *nc = segue.destinationViewController;
-        [self presentDetailViewController:(DetailViewController *)nc.topViewController agent:agent];
+        DetailViewController *dvc = (DetailViewController *)nc.topViewController;
+        dvc.managedObjectCotnext = self.managedObjectContext;
+        [self presentDetailViewController:dvc agent:agent];
     }
     
 }

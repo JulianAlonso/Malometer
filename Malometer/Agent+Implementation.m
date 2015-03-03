@@ -11,7 +11,7 @@
 static NSString *const kAgentName = @"agentName";
 static NSString *const kAgentMotivation = @"agentMotivation";
 static NSString *const kAgentDestructionPower = @"agentDestructionPower";
-static NSString *const kAgentApprisal = @"agentApprisal";
+static NSString *const kAgentAppraisal = @"agentAppraisal";
 
 @implementation Agent (Implementation)
 
@@ -24,19 +24,21 @@ static NSString *const kAgentApprisal = @"agentApprisal";
 {
     [self calculateAppraisal];
     
-    [self willAccessValueForKey:kAgentApprisal];
-    NSNumber *returnNumber =  [self primitiveValueForKey:kAgentApprisal];
-    [self didAccessValueForKey:kAgentApprisal];
+    [self willAccessValueForKey:kAgentAppraisal];
+    NSNumber *returnNumber =  [self primitiveValueForKey:kAgentAppraisal];
+    [self didAccessValueForKey:kAgentAppraisal];
     
     return returnNumber;
 }
 
 - (void)calculateAppraisal
 {
-    [self willChangeValueForKey:kAgentApprisal];
+    [self willChangeValueForKey:kAgentAppraisal];
+    
     [self setPrimitiveValue:@((self.agentDestructionPower.integerValue + self.agentMotivation.integerValue) / 2)
-                     forKey:kAgentApprisal];
-    [self didChangeValueForKey:kAgentApprisal];
+                     forKey:kAgentAppraisal];
+    
+    [self didChangeValueForKey:kAgentAppraisal];
 }
 
 @end
