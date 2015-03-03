@@ -53,4 +53,13 @@ static NSString *const kAgentAppraisal = @"agentAppraisal";
     return fetchRequest;
 }
 
++ (NSFetchRequest *)fetchAllAgentsSortedBy:(NSArray *)sortDescriptors
+{
+    NSFetchRequest *select = [[NSFetchRequest alloc] initWithEntityName:NSStringFromClass([self class])];
+    select.fetchBatchSize = 20;
+    select.sortDescriptors = @[sortDescriptors];
+    
+    return select;
+}
+
 @end

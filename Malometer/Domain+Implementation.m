@@ -15,7 +15,7 @@ static NSString *const kDomainName = @"domainName";
 + (Domain *)fetchInMOC:(NSManagedObjectContext *)managedObjectContext withName:(NSString *)name
 {
     NSFetchRequest *select = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
-    select.predicate = [NSPredicate predicateWithFormat:@"%@ == %@",kDomainName, name];
+    select.predicate = [NSPredicate predicateWithFormat:@"%@ like %@",kDomainName, name];
     NSArray *array = [managedObjectContext executeFetchRequest:select error:nil];
     
     if (array.count)

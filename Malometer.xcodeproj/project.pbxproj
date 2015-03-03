@@ -16,6 +16,8 @@
 		01A5FC871AA47603004A45FB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01A5FC861AA47603004A45FB /* Images.xcassets */; };
 		01A5FC8A1AA47603004A45FB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A5FC881AA47603004A45FB /* LaunchScreen.xib */; };
 		01A5FCDF1AA4F924004A45FB /* Agent+Implementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A5FCDE1AA4F924004A45FB /* Agent+Implementation.m */; };
+		01BE8F0F1AA61E62008FD8FB /* AgentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BE8F0E1AA61E62008FD8FB /* AgentTests.m */; };
+		01BE8F101AA6210C008FD8FB /* Malometer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01A5FC7A1AA47603004A45FB /* Malometer.xcdatamodeld */; };
 		01D8443A1AA5CB2C00C88E6F /* FreakType.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D844391AA5CB2C00C88E6F /* FreakType.m */; };
 		01D8443D1AA5CB2D00C88E6F /* Domain.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D8443C1AA5CB2D00C88E6F /* Domain.m */; };
 		01D844401AA5CB2D00C88E6F /* Agent.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D8443F1AA5CB2D00C88E6F /* Agent.m */; };
@@ -53,6 +55,7 @@
 		01A5FCA21AA48DAF004A45FB /* DetailViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewProtocol.h; sourceTree = "<group>"; };
 		01A5FCDD1AA4F924004A45FB /* Agent+Implementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Agent+Implementation.h"; sourceTree = "<group>"; };
 		01A5FCDE1AA4F924004A45FB /* Agent+Implementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Agent+Implementation.m"; sourceTree = "<group>"; };
+		01BE8F0E1AA61E62008FD8FB /* AgentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgentTests.m; sourceTree = "<group>"; };
 		01D844381AA5CB2C00C88E6F /* FreakType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreakType.h; sourceTree = "<group>"; };
 		01D844391AA5CB2C00C88E6F /* FreakType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreakType.m; sourceTree = "<group>"; };
 		01D8443B1AA5CB2D00C88E6F /* Domain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Domain.h; sourceTree = "<group>"; };
@@ -136,6 +139,7 @@
 			children = (
 				01A5FC931AA47603004A45FB /* Supporting Files */,
 				01D844471AA5FB4A00C88E6F /* AppDelegateTest.m */,
+				01BE8F0E1AA61E62008FD8FB /* AgentTests.m */,
 			);
 			path = MalometerTests;
 			sourceTree = "<group>";
@@ -286,6 +290,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				01D844481AA5FB4A00C88E6F /* AppDelegateTest.m in Sources */,
+				01BE8F0F1AA61E62008FD8FB /* AgentTests.m in Sources */,
+				01BE8F101AA6210C008FD8FB /* Malometer.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

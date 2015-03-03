@@ -189,7 +189,7 @@ static NSString *const kAgentMotivationChanged = @"agent.agentMotivation";
     {
         if (domainString.length > 0)
         {
-            [domainString appendString:@", "];
+            [domainString appendString:@","];
         }
         [domainString appendString:domain.domainName];
     }

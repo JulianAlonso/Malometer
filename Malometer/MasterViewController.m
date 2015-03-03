@@ -11,11 +11,13 @@
 #import "Agent.h"
 #import "DetailViewProtocol.h"
 #import "Agent+Implementation.h"
+#import "FreakType.h"
+#import "Domain.h"
 
 static NSString *const kAgentEntityName = @"Agent";
 static NSString *const kAgentName = @"agentName";
-
 static NSString *const kCreateAgentSegue = @"createAgentSegue";
+static NSString *const kPathForAgentCategory = @"agentCategory.freakTypeName";
 
 @interface MasterViewController ()
 
@@ -35,6 +37,11 @@ static NSString *const kCreateAgentSegue = @"createAgentSegue";
     [super viewDidLoad];
     
     self.managedObjectContext.undoManager = [[NSUndoManager alloc] init];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    self.title = [[self numberOfAgentsWithDestructionPowerGreatherThan:@(2)] stringValue];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -95,6 +102,14 @@ static NSString *const kCreateAgentSegue = @"createAgentSegue";
     return [sectionInfo numberOfObjects];
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
+    Agent *algo = [sectionInfo.objects objectAtIndex:0];
+    
+    return algo.agentCategory.freakTypeName;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
@@ -141,7 +156,8 @@ static NSString *const kCreateAgentSegue = @"createAgentSegue";
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:[Agent fetchAllAgents] managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:[Agent fetchAllAgents] managedObjectContext:self.managedObjectContext sectionNameKeyPath:kPathForAgentCategory cacheName:@"Master"];
+    
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
     
@@ -207,6 +223,28 @@ static NSString *const kCreateAgentSegue = @"createAgentSegue";
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     [self.tableView endUpdates];
+}
+
+#pragma mark - Own methods.
+- (NSNumber *)numberOfAgentsWithDestructionPowerGreatherThan:(NSNumber *)number
+{
+    NSFetchRequest *select = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([Domain class])];
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"domainAgents.@count > %@ && (SUBQUERY(domainAgents, $x, $x.agentPowerDestruction > %@))", @(0), number];
+//    __unused NSPredicate *subPredicate = [NSPredicate predicateWithFormat:@"(SUBQUERY(Agent, $x, $x.agentPowerDestruction > %@))", number];
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(SUBQUERY(domainAgents, $x, $x.agentDestructionPower > %@).@count > 0)", number];
+    
+    select.predicate = predicate;
+    
+    NSArray *result = [self.managedObjectContext executeFetchRequest:select error:nil];
+    
+    
+    if (result.count)
+    {
+        return @(result.count);
+    }
+    
+    return @(0);
 }
 
 @end
