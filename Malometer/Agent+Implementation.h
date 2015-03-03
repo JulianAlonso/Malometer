@@ -11,3 +11,9 @@
 @interface Agent (Implementation)
 
 @end
+
+@interface Agent (FetchRequest)
+
++ (NSFetchRequest *)fetchAllAgents;
+
+@end

@@ -104,11 +104,8 @@
 				01A5FC861AA47603004A45FB /* Images.xcassets */,
 				01A5FC881AA47603004A45FB /* LaunchScreen.xib */,
 				01A5FC7A1AA47603004A45FB /* Malometer.xcdatamodeld */,
-				01A5FCDA1AA4F8FD004A45FB /* Agent.h */,
-				01A5FCDB1AA4F8FD004A45FB /* Agent.m */,
+				01D844371AA5C1CA00C88E6F /* Model */,
 				01A5FC731AA47603004A45FB /* Supporting Files */,
-				01A5FCDD1AA4F924004A45FB /* Agent+Implementation.h */,
-				01A5FCDE1AA4F924004A45FB /* Agent+Implementation.m */,
 			);
 			path = Malometer;
 			sourceTree = "<group>";
@@ -137,6 +134,17 @@
 				01A5FC941AA47603004A45FB /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		01D844371AA5C1CA00C88E6F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				01A5FCDA1AA4F8FD004A45FB /* Agent.h */,
+				01A5FCDB1AA4F8FD004A45FB /* Agent.m */,
+				01A5FCDD1AA4F924004A45FB /* Agent+Implementation.h */,
+				01A5FCDE1AA4F924004A45FB /* Agent+Implementation.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -436,6 +444,7 @@
 				01A5FC9B1AA47603004A45FB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		01A5FC9C1AA47603004A45FB /* Build configuration list for PBXNativeTarget "MalometerTests" */ = {
 			isa = XCConfigurationList;
@@ -444,6 +453,7 @@
 				01A5FC9E1AA47603004A45FB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

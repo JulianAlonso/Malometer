@@ -4,7 +4,7 @@
         <attribute name="agentAppraisal" optional="YES" transient="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="agentDestructionPower" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="agentMotivation" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="agentName" optional="YES" attributeType="String">
+        <attribute name="agentName" attributeType="String" indexed="YES">
             <userInfo/>
         </attribute>
         <userInfo/>

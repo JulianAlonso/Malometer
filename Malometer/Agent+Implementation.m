@@ -8,6 +8,7 @@
 
 #import "Agent+Implementation.h"
 
+static NSString *const kAgentName = @"agentName";
 static NSString *const kAgentMotivation = @"agentMotivation";
 static NSString *const kAgentDestructionPower = @"agentDestructionPower";
 static NSString *const kAgentApprisal = @"agentApprisal";
@@ -36,6 +37,18 @@ static NSString *const kAgentApprisal = @"agentApprisal";
     [self setPrimitiveValue:@((self.agentDestructionPower.integerValue + self.agentMotivation.integerValue) / 2)
                      forKey:kAgentApprisal];
     [self didChangeValueForKey:kAgentApprisal];
+}
+
+@end
+
+@implementation Agent (FetchRequest)
+
++ (NSFetchRequest *)fetchAllAgents
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:NSStringFromClass([self class])];
+    fetchRequest.fetchBatchSize = 20;
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:kAgentName ascending:NO]];
+    return fetchRequest;
 }
 
 @end
