@@ -14,18 +14,9 @@ static NSString *const kAgentApprisal = @"agentApprisal";
 
 @implementation Agent (Implementation)
 
-- (void)setAgentDestructionPower:(NSNumber *)agentDestructionPower
++ (NSSet *)keyPathsForValuesAffectingAppraisal
 {
-    [self willChangeValueForKey:kAgentDestructionPower];
-    [self setPrimitiveValue:agentDestructionPower forKey:@"agentMotivation"];
-    [self didChangeValueForKey:kAgentDestructionPower];
-}
-
-- (void)setAgentMotivation:(NSNumber *)agentMotivation
-{
-    [self willChangeValueForKey:kAgentMotivation];
-    [self setPrimitiveValue:agentMotivation forKey:@"agentMotivation"];
-    [self didChangeValueForKey:kAgentMotivation];
+    return [NSSet setWithArray:@[kAgentMotivation, kAgentDestructionPower]];
 }
 
 - (NSNumber *)agentAppraisal
@@ -44,8 +35,10 @@ static NSString *const kAgentApprisal = @"agentApprisal";
 
 - (void)calculateAppraisal
 {
+    [self willChangeValueForKey:kAgentApprisal];
     [self setPrimitiveValue:@((self.agentDestructionPower.integerValue + self.agentMotivation.integerValue) / 2)
                      forKey:kAgentApprisal];
+    [self didChangeValueForKey:kAgentApprisal];
 }
 
 @end
