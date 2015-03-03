@@ -15,13 +15,13 @@
 		01A5FC851AA47603004A45FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01A5FC831AA47603004A45FB /* Main.storyboard */; };
 		01A5FC871AA47603004A45FB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01A5FC861AA47603004A45FB /* Images.xcassets */; };
 		01A5FC8A1AA47603004A45FB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A5FC881AA47603004A45FB /* LaunchScreen.xib */; };
-		01A5FC961AA47603004A45FB /* MalometerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A5FC951AA47603004A45FB /* MalometerTests.m */; };
 		01A5FCDF1AA4F924004A45FB /* Agent+Implementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A5FCDE1AA4F924004A45FB /* Agent+Implementation.m */; };
 		01D8443A1AA5CB2C00C88E6F /* FreakType.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D844391AA5CB2C00C88E6F /* FreakType.m */; };
 		01D8443D1AA5CB2D00C88E6F /* Domain.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D8443C1AA5CB2D00C88E6F /* Domain.m */; };
 		01D844401AA5CB2D00C88E6F /* Agent.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D8443F1AA5CB2D00C88E6F /* Agent.m */; };
 		01D844431AA5D44300C88E6F /* Domain+Implementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D844421AA5D44300C88E6F /* Domain+Implementation.m */; };
 		01D844461AA5DE7000C88E6F /* FreakType+Implementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D844451AA5DE7000C88E6F /* FreakType+Implementation.m */; };
+		01D844481AA5FB4A00C88E6F /* AppDelegateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D844471AA5FB4A00C88E6F /* AppDelegateTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +50,6 @@
 		01A5FC891AA47603004A45FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		01A5FC8F1AA47603004A45FB /* MalometerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MalometerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		01A5FC941AA47603004A45FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		01A5FC951AA47603004A45FB /* MalometerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MalometerTests.m; sourceTree = "<group>"; };
 		01A5FCA21AA48DAF004A45FB /* DetailViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewProtocol.h; sourceTree = "<group>"; };
 		01A5FCDD1AA4F924004A45FB /* Agent+Implementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Agent+Implementation.h"; sourceTree = "<group>"; };
 		01A5FCDE1AA4F924004A45FB /* Agent+Implementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Agent+Implementation.m"; sourceTree = "<group>"; };
@@ -64,6 +63,7 @@
 		01D844421AA5D44300C88E6F /* Domain+Implementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Domain+Implementation.m"; sourceTree = "<group>"; };
 		01D844441AA5DE7000C88E6F /* FreakType+Implementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FreakType+Implementation.h"; sourceTree = "<group>"; };
 		01D844451AA5DE7000C88E6F /* FreakType+Implementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FreakType+Implementation.m"; sourceTree = "<group>"; };
+		01D844471AA5FB4A00C88E6F /* AppDelegateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegateTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,8 +134,8 @@
 		01A5FC921AA47603004A45FB /* MalometerTests */ = {
 			isa = PBXGroup;
 			children = (
-				01A5FC951AA47603004A45FB /* MalometerTests.m */,
 				01A5FC931AA47603004A45FB /* Supporting Files */,
+				01D844471AA5FB4A00C88E6F /* AppDelegateTest.m */,
 			);
 			path = MalometerTests;
 			sourceTree = "<group>";
@@ -285,7 +285,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01A5FC961AA47603004A45FB /* MalometerTests.m in Sources */,
+				01D844481AA5FB4A00C88E6F /* AppDelegateTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

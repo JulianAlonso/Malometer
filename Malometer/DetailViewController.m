@@ -10,6 +10,8 @@
 #import "Agent.h"
 #import "Domain+Implementation.h"
 #import "FreakType+Implementation.h"
+#import "Domain.h"
+#import "FreakType.h"
 
 static NSString *const kAgentDestructionForceChanged = @"agent.agentDestructionPower";
 static NSString *const kAgentMotivationChanged = @"agent.agentMotivation";
@@ -66,7 +68,8 @@ static NSString *const kAgentMotivationChanged = @"agent.agentMotivation";
 {
     //config steppers
     self.nameInputText.text = self.agent.agentName;
-    //TODO: load domain and freakType inputs.
+    self.domainInputText.text = [self stringWithDomains:self.agent.agentDomain];
+    self.freakTypeInputText.text = self.agent.agentCategory.freakTypeName;
     self.motivationStepper.value = [self.agent.agentMotivation doubleValue];
     self.destructionPowerStepper.value = [self.agent.agentDestructionPower doubleValue];
     
@@ -177,6 +180,20 @@ static NSString *const kAgentMotivationChanged = @"agent.agentMotivation";
     [self assignFreakType];
     [self assignMotivation];
     [self assignDestructionPower];
+}
+
+- (NSString *)stringWithDomains:(NSSet *)domains
+{
+    NSMutableString *domainString = [NSMutableString string];
+    for (Domain *domain in domains)
+    {
+        if (domainString.length > 0)
+        {
+            [domainString appendString:@", "];
+        }
+        [domainString appendString:domain.domainName];
+    }
+    return domainString;
 }
 
 @end
