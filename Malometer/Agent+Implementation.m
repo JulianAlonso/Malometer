@@ -34,7 +34,12 @@ static NSString *const kAgentApprisal = @"agentApprisal";
     {
         [self calculateAppraisal];
     }
-    return [self primitiveValueForKey:kAgentApprisal];
+    
+    [self willAccessValueForKey:kAgentApprisal];
+    NSNumber *returnNumber =  [self primitiveValueForKey:kAgentApprisal];
+    [self didAccessValueForKey:kAgentApprisal];
+    
+    return returnNumber;
 }
 
 - (void)calculateAppraisal
