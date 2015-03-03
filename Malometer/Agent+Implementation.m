@@ -21,10 +21,7 @@ static NSString *const kAgentApprisal = @"agentApprisal";
 
 - (NSNumber *)agentAppraisal
 {
-    if (![self primitiveValueForKey:kAgentApprisal])
-    {
-        [self calculateAppraisal];
-    }
+    [self calculateAppraisal];
     
     [self willAccessValueForKey:kAgentApprisal];
     NSNumber *returnNumber =  [self primitiveValueForKey:kAgentApprisal];

@@ -104,19 +104,11 @@ static NSString *const kAgentMotivationChanged = @"agent.agentMotivation";
     if ([keyPath isEqualToString:kAgentDestructionForceChanged] || [keyPath isEqualToString:kAgentMotivationChanged])
     {
         [self configureView];
-//        [self calculateContratacionLabel];
         self.contratacionLabel.text = self.resultSentences[self.agent.agentAppraisal.integerValue];
     }
 }
 
 #pragma mark - Own methods.
-//- (void)calculateContratacionLabel
-//{
-//    int contratacion = (self.motivationStepper.value + self.destructionPowerStepper.value) / 2;
-//    
-//    self.contratacionLabel.text = self.resultSentences[contratacion];
-//}
-
 - (void)removeObservers
 {
     [self removeObserver:self forKeyPath:kAgentDestructionForceChanged];
