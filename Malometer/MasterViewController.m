@@ -62,6 +62,8 @@ static NSString *const kPathForAgentCategory = @"agentCategory.freakTypeName";
         Agent *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
         UINavigationController *nc = segue.destinationViewController;
         DetailViewController *dvc = (DetailViewController *)nc.topViewController;
+        
+        
         dvc.agent = object;
         dvc.managedObjectCotnext = self.managedObjectContext;
     }
@@ -69,6 +71,17 @@ static NSString *const kPathForAgentCategory = @"agentCategory.freakTypeName";
     if ([segue.identifier isEqualToString:kCreateAgentSegue])
     {
         Agent *agent = [[self fetchedResultsController] objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
+        
+        if (self.tableView.indexPathForSelectedRow.row %2 == 0)
+        {
+            agent.agentPower = @"Intelligence";
+        }
+        else
+        {
+            agent.agentPower = @"Force";
+        }
+
+        
         UINavigationController *nc = segue.destinationViewController;
         DetailViewController *dvc = (DetailViewController *)nc.topViewController;
         dvc.managedObjectCotnext = self.managedObjectContext;

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		019F8F271AA87A3300A34F6C /* Agent.m in Sources */ = {isa = PBXBuildFile; fileRef = 019F8F261AA87A3300A34F6C /* Agent.m */; };
 		01A5FC761AA47603004A45FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A5FC751AA47603004A45FB /* main.m */; };
 		01A5FC791AA47603004A45FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A5FC781AA47603004A45FB /* AppDelegate.m */; };
 		01A5FC7C1AA47603004A45FB /* Malometer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01A5FC7A1AA47603004A45FB /* Malometer.xcdatamodeld */; };
@@ -20,7 +21,6 @@
 		01BE8F101AA6210C008FD8FB /* Malometer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01A5FC7A1AA47603004A45FB /* Malometer.xcdatamodeld */; };
 		01D8443A1AA5CB2C00C88E6F /* FreakType.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D844391AA5CB2C00C88E6F /* FreakType.m */; };
 		01D8443D1AA5CB2D00C88E6F /* Domain.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D8443C1AA5CB2D00C88E6F /* Domain.m */; };
-		01D844401AA5CB2D00C88E6F /* Agent.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D8443F1AA5CB2D00C88E6F /* Agent.m */; };
 		01D844431AA5D44300C88E6F /* Domain+Implementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D844421AA5D44300C88E6F /* Domain+Implementation.m */; };
 		01D844461AA5DE7000C88E6F /* FreakType+Implementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D844451AA5DE7000C88E6F /* FreakType+Implementation.m */; };
 		01D844481AA5FB4A00C88E6F /* AppDelegateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D844471AA5FB4A00C88E6F /* AppDelegateTest.m */; };
@@ -37,6 +37,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		019F8F241AA86FDF00A34F6C /* Malometer 1.1.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Malometer 1.1.0.xcdatamodel"; sourceTree = "<group>"; };
+		019F8F251AA87A3300A34F6C /* Agent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Agent.h; sourceTree = "<group>"; };
+		019F8F261AA87A3300A34F6C /* Agent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Agent.m; sourceTree = "<group>"; };
 		01A5FC701AA47603004A45FB /* Malometer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Malometer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01A5FC741AA47603004A45FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01A5FC751AA47603004A45FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -60,8 +63,6 @@
 		01D844391AA5CB2C00C88E6F /* FreakType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreakType.m; sourceTree = "<group>"; };
 		01D8443B1AA5CB2D00C88E6F /* Domain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Domain.h; sourceTree = "<group>"; };
 		01D8443C1AA5CB2D00C88E6F /* Domain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Domain.m; sourceTree = "<group>"; };
-		01D8443E1AA5CB2D00C88E6F /* Agent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Agent.h; sourceTree = "<group>"; };
-		01D8443F1AA5CB2D00C88E6F /* Agent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Agent.m; sourceTree = "<group>"; };
 		01D844411AA5D44300C88E6F /* Domain+Implementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Domain+Implementation.h"; sourceTree = "<group>"; };
 		01D844421AA5D44300C88E6F /* Domain+Implementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Domain+Implementation.m"; sourceTree = "<group>"; };
 		01D844441AA5DE7000C88E6F /* FreakType+Implementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FreakType+Implementation.h"; sourceTree = "<group>"; };
@@ -155,8 +156,8 @@
 		01D844371AA5C1CA00C88E6F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				01D8443E1AA5CB2D00C88E6F /* Agent.h */,
-				01D8443F1AA5CB2D00C88E6F /* Agent.m */,
+				019F8F251AA87A3300A34F6C /* Agent.h */,
+				019F8F261AA87A3300A34F6C /* Agent.m */,
 				01D8443B1AA5CB2D00C88E6F /* Domain.h */,
 				01D8443C1AA5CB2D00C88E6F /* Domain.m */,
 				01D844381AA5CB2C00C88E6F /* FreakType.h */,
@@ -271,12 +272,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01D844401AA5CB2D00C88E6F /* Agent.m in Sources */,
 				01D8443A1AA5CB2C00C88E6F /* FreakType.m in Sources */,
 				01A5FC821AA47603004A45FB /* DetailViewController.m in Sources */,
 				01A5FC7F1AA47603004A45FB /* MasterViewController.m in Sources */,
 				01D8443D1AA5CB2D00C88E6F /* Domain.m in Sources */,
 				01D844431AA5D44300C88E6F /* Domain+Implementation.m in Sources */,
+				019F8F271AA87A3300A34F6C /* Agent.m in Sources */,
 				01A5FC791AA47603004A45FB /* AppDelegate.m in Sources */,
 				01A5FCDF1AA4F924004A45FB /* Agent+Implementation.m in Sources */,
 				01A5FC761AA47603004A45FB /* main.m in Sources */,
@@ -491,9 +492,10 @@
 		01A5FC7A1AA47603004A45FB /* Malometer.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				019F8F241AA86FDF00A34F6C /* Malometer 1.1.0.xcdatamodel */,
 				01A5FC7B1AA47603004A45FB /* Malometer.xcdatamodel */,
 			);
-			currentVersion = 01A5FC7B1AA47603004A45FB /* Malometer.xcdatamodel */;
+			currentVersion = 019F8F241AA86FDF00A34F6C /* Malometer 1.1.0.xcdatamodel */;
 			path = Malometer.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
