@@ -72,14 +72,14 @@ static NSString *const kPathForAgentCategory = @"agentCategory.freakTypeName";
     {
         Agent *agent = [[self fetchedResultsController] objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
         
-        if (self.tableView.indexPathForSelectedRow.row %2 == 0)
-        {
-            agent.agentPower = @"Intelligence";
-        }
-        else
-        {
-            agent.agentPower = @"Force";
-        }
+//        if (self.tableView.indexPathForSelectedRow.row %2 == 0)
+//        {
+//            agent.;
+//        }
+//        else
+//        {
+//            agent.agentPower = @"Force";
+//        }
 
         
         UINavigationController *nc = segue.destinationViewController;
@@ -118,7 +118,7 @@ static NSString *const kPathForAgentCategory = @"agentCategory.freakTypeName";
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
-    Agent *algo = [sectionInfo.objects objectAtIndex:0];
+    Agent *algo = [sectionInfo.objects firstObject];
     
     return algo.agentCategory.freakTypeName;
 }
@@ -169,7 +169,7 @@ static NSString *const kPathForAgentCategory = @"agentCategory.freakTypeName";
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:[Agent fetchAllAgents] managedObjectContext:self.managedObjectContext sectionNameKeyPath:kPathForAgentCategory cacheName:@"Master"];
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:[Agent fetchAllAgents] managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
     
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;

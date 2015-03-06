@@ -9,8 +9,11 @@
 #import "AppDelegate.h"
 #import "DetailViewController.h"
 #import "MasterViewController.h"
+#import "Agent+Implementation.h"
 
 @interface AppDelegate ()
+
+@property (nonatomic, strong) NSManagedObjectContext *backgroundManagedObjectContext;
 
 @end
 
@@ -19,9 +22,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
     MasterViewController *controller = (MasterViewController *)navigationController.topViewController;
     controller.managedObjectContext = self.managedObjectContext;
+    
+   [self fakeAgentImporter:self.backgroundManagedObjectContext];
+    
     return YES;
 }
 
@@ -109,7 +116,7 @@
     if (!coordinator) {
         return nil;
     }
-    _managedObjectContext = [[NSManagedObjectContext alloc] init];
+    _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     [_managedObjectContext setPersistentStoreCoordinator:coordinator];
     return _managedObjectContext;
 }
@@ -136,5 +143,32 @@
              NSInferMappingModelAutomaticallyOption : @YES
              };
 }
+
+#pragma mark - Custom methods.
+
+- (void)fakeAgentImporter:(NSManagedObjectContext *)managedObjectContext
+{
+    [managedObjectContext performBlock:^{
+        for (int i=0; i<10000; i++)
+        {
+            __unused Agent *agent = [Agent agentInMOC:managedObjectContext andName:[NSString stringWithFormat:@"Agent %i", i]];
+            NSLog(@"Importing %i", i);
+        }
+        [managedObjectContext save:NULL];
+    }];
+}
+
+- (NSManagedObjectContext *)backgroundManagedObjectContext
+{
+    if (!_backgroundManagedObjectContext)
+    {
+        _backgroundManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        [_backgroundManagedObjectContext setPersistentStoreCoordinator:[self persistentStoreCoordinator]];
+    }
+    
+    return _backgroundManagedObjectContext;
+}
+
+
 
 @end

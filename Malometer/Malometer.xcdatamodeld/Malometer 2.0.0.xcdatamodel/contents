@@ -7,9 +7,9 @@
         <attribute name="agentName" attributeType="String" indexed="YES">
             <userInfo/>
         </attribute>
-        <attribute name="agentPower" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="agentCategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FreakType" inverseName="freakTypeAgents" inverseEntity="FreakType" syncable="YES"/>
         <relationship name="agentDomain" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Domain" inverseName="domainAgents" inverseEntity="Domain" syncable="YES"/>
+        <relationship name="agentPower" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Power" inverseName="powerAgent" inverseEntity="Power" syncable="YES"/>
         <userInfo/>
     </entity>
     <entity name="Domain" representedClassName="Domain" syncable="YES">
@@ -20,9 +20,14 @@
         <attribute name="freakTypeName" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="freakTypeAgents" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Agent" inverseName="agentCategory" inverseEntity="Agent" syncable="YES"/>
     </entity>
+    <entity name="Power" representedClassName="Power" syncable="YES">
+        <attribute name="powerName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="powerAgent" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Agent" inverseName="agentPower" inverseEntity="Agent" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Agent" positionX="-198" positionY="-81" width="128" height="148"/>
+        <element name="Agent" positionX="-198" positionY="-81" width="128" height="150"/>
         <element name="Domain" positionX="216" positionY="359" width="128" height="73"/>
         <element name="FreakType" positionX="241" positionY="260" width="128" height="73"/>
+        <element name="Power" positionX="36" positionY="99" width="128" height="73"/>
     </elements>
 </model>

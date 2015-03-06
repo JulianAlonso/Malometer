@@ -10,6 +10,8 @@
 
 @interface Agent (Implementation)
 
++ (instancetype)agentInMOC:(NSManagedObjectContext *)managedObjectContext andName:(NSString *)name;
+
 @end
 
 @interface Agent (FetchRequest)

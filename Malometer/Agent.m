@@ -9,6 +9,7 @@
 #import "Agent.h"
 #import "Domain.h"
 #import "FreakType.h"
+#import "Power.h"
 
 
 @implementation Agent
@@ -17,8 +18,8 @@
 @dynamic agentDestructionPower;
 @dynamic agentMotivation;
 @dynamic agentName;
-@dynamic agentPower;
 @dynamic agentCategory;
 @dynamic agentDomain;
+@dynamic agentPower;
 
 @end

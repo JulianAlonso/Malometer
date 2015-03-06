@@ -7,7 +7,7 @@
 //
 
 #import "Agent+Implementation.h"
-
+NSString *const kAgentEntity = @"Agent";
 static NSString *const kAgentName = @"agentName";
 static NSString *const kAgentMotivation = @"agentMotivation";
 static NSString *const kAgentDestructionPower = @"agentDestructionPower";
@@ -39,6 +39,15 @@ static NSString *const kAgentAppraisal = @"agentAppraisal";
                      forKey:kAgentAppraisal];
     
     [self didChangeValueForKey:kAgentAppraisal];
+}
+
++ (instancetype)agentInMOC:(NSManagedObjectContext *)managedObjectContext andName:(NSString *)name
+{
+    Agent *agent = [NSEntityDescription insertNewObjectForEntityForName:kAgentEntity inManagedObjectContext:managedObjectContext];
+    
+    agent.agentName = name;
+    
+    return agent;
 }
 
 @end
