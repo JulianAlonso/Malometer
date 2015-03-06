@@ -35,8 +35,6 @@ static NSString *const kPathForAgentCategory = @"agentCategory.freakTypeName";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.managedObjectContext.undoManager = [[NSUndoManager alloc] init];
 }
 
 - (void)viewDidAppear:(BOOL)animated

@@ -13,8 +13,6 @@
 
 @interface AppDelegate ()
 
-@property (nonatomic, strong) NSManagedObjectContext *backgroundManagedObjectContext;
-
 @end
 
 @implementation AppDelegate
@@ -27,7 +25,7 @@
     MasterViewController *controller = (MasterViewController *)navigationController.topViewController;
     controller.managedObjectContext = self.managedObjectContext;
     
-   [self fakeAgentImporter:self.backgroundManagedObjectContext];
+    [self fakeAgentImporter:self.backgroundManagedObjectContext];
     
     return YES;
 }
@@ -51,14 +49,14 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    // Saves changes in the application's managed object context before the application terminates.
+    
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [self saveContext];
 }
 
 #pragma mark - Core Data stack
 
-@synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
@@ -105,22 +103,6 @@
     return _persistentStoreCoordinator;
 }
 
-
-- (NSManagedObjectContext *)managedObjectContext {
-    // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.)
-    if (_managedObjectContext != nil) {
-        return _managedObjectContext;
-    }
-    
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (!coordinator) {
-        return nil;
-    }
-    _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-    [_managedObjectContext setPersistentStoreCoordinator:coordinator];
-    return _managedObjectContext;
-}
-
 #pragma mark - Core Data Saving support
 
 - (void)saveContext {
@@ -144,6 +126,48 @@
              };
 }
 
+#pragma mark - Lazy getters.
+
+@synthesize managedObjectContext = _managedObjectContext;
+@synthesize backgroundManagedObjectContext = _backgroundManagedObjectContext;
+@synthesize rootManagedObjectContext = _rootManagedObjectContext;
+
+- (NSManagedObjectContext *)backgroundManagedObjectContext
+{
+    if (!_backgroundManagedObjectContext)
+    {
+        _backgroundManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        [_backgroundManagedObjectContext setParentContext:self.managedObjectContext];
+    }
+    
+    return _backgroundManagedObjectContext;
+}
+
+- (NSManagedObjectContext *)rootManagedObjectContext
+{
+    if (!_rootManagedObjectContext)
+    {
+        NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+        if (coordinator)
+        {
+            _rootManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+            [_rootManagedObjectContext setPersistentStoreCoordinator:coordinator];
+        }
+    }
+    return _rootManagedObjectContext;
+}
+
+- (NSManagedObjectContext *)managedObjectContext
+{
+    if (!_managedObjectContext)
+    {
+        _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        [_managedObjectContext setParentContext:self.rootManagedObjectContext];
+        _managedObjectContext.undoManager = [[NSUndoManager alloc] init];
+    }
+    return _managedObjectContext;
+}
+
 #pragma mark - Custom methods.
 
 - (void)fakeAgentImporter:(NSManagedObjectContext *)managedObjectContext
@@ -157,18 +181,5 @@
         [managedObjectContext save:NULL];
     }];
 }
-
-- (NSManagedObjectContext *)backgroundManagedObjectContext
-{
-    if (!_backgroundManagedObjectContext)
-    {
-        _backgroundManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-        [_backgroundManagedObjectContext setPersistentStoreCoordinator:[self persistentStoreCoordinator]];
-    }
-    
-    return _backgroundManagedObjectContext;
-}
-
-
 
 @end
